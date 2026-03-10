@@ -10,12 +10,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RootNavigator from '@/navigation/RootNavigator';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { config } from '../gluestack-ui.config';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './services/api/queryClient';
 import BootSplash from 'react-native-bootsplash';
 
-function App() {
+export default function App() {
   React.useEffect(() => {
     const init = async () => {
       // …do multiple sync or async tasks
@@ -29,13 +31,13 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <GluestackUIProvider config={config}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GluestackUIProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
